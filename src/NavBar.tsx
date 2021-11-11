@@ -20,7 +20,6 @@ const NavBar = ({ setMode, mode }:NavProps ) => {
     </div>
 
     {mode}
-    <p>nav-bar입니다</p>
     </>
   )
 }
