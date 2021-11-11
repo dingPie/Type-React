@@ -25,8 +25,6 @@ const Todo = () => {
   }
 
   const throughTodo = ( id: number ):void => {
-    let target = todoMemo.filter( v => v.id === id)[0]
-    console.log(target)
     let newTodo = todoMemo.map(v => 
       v.id === id ? { ...v, checked: !v.checked } : v
       )
@@ -38,31 +36,30 @@ const Todo = () => {
     let ok = window.confirm('이 할일을 삭제할까요?')
     if (ok) {
       let target = todoMemo.filter( v => v.id !== id)
-      console.log(target)
       setTodoMemo(target)
   }
   }
 
   const todoList = todoMemo.map( v =>
-    <div className="todo">
-      <input type="checkbox" className= 'check-btn' onClick= { () => throughTodo(v.id)} />
+    <div className="todo-memo">
       <li className= 'content' style= { v.checked ? checkStyle : undefined}
+          onClick= { () => throughTodo(v.id) }
         > {v.content} 
       </li>
-      <span className= 'del-btn' onClick= { () => deleteTodo(v.id) }> 삭제 </span>
+      <span className= 'del-btn' onClick= { () => deleteTodo(v.id) }> <i className="far fa-trash-alt"></i> </span>
     </div>
     )
 
 
   return(
-    <>
-    <p> 여기는 todo 페이지 입니다.</p>
+    <div className='todo box'>
+        <h1>What 2 Do ?</h1>
+      <TodoInput todoMemo={todoMemo} setTodoMemo={setTodoMemo} />
 
-    <TodoInput todoMemo={todoMemo} setTodoMemo={setTodoMemo} />
-
-    {todoList}
-
-    </>
+      <div className="todo-list">
+        {todoList}
+      </div>
+    </div>
   )
   
 

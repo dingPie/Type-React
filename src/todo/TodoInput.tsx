@@ -6,7 +6,7 @@ export interface ITodoList {
   setTodoMemo: ( list:  Itodo[]) => void;
 }
 
-const TodoInput = ( {todoMemo,setTodoMemo}:ITodoList ) => {
+const TodoInput = ( {todoMemo, setTodoMemo}:ITodoList ) => {
   const [inputMemo, setInputMemo] = useState('')
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,11 +24,11 @@ const TodoInput = ( {todoMemo,setTodoMemo}:ITodoList ) => {
   }
 
   return (
-    <form onSubmit= {(e) => onSubmit(e)}>
-      <input type="text" value ={inputMemo}
+    <form onSubmit= {(e) => onSubmit(e)} className='input-box'>
+      <input type="text" value ={inputMemo} className='input' placeholder='Write down what to do...'
         onChange= {(e) => onChange(e)}
       />
-      <input type="submit" value=" + " />
+      <input type="submit" value="+" className='btn' />
     </form>
   )
 }

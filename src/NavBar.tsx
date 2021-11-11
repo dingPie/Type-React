@@ -1,4 +1,5 @@
 import React from "react";
+import './style/style.scss'
 
 interface NavProps {
   setMode: (value: string) => void;
@@ -13,13 +14,11 @@ const NavBar = ({ setMode, mode }:NavProps ) => {
 
   return (
     <>
-    <div className="nav-box">
-      <button onClick= {() => setMode('todo')}> Todo List </button>
-      <button onClick= {() => setMode('weather')}> Weather </button>
-      <button onClick= {() => setMode('calender')}> Calender </button>
-    </div>
-
-    {mode}
+      <div className="nav-box">
+        <div className='set-todo-btn' onClick= {() => setMode('todo')}> Todo List </div>
+        <div className='set-weather-btn' onClick= {() => setMode('weather')}> Weather </div>
+        <div className='set-calender-btn' onClick= {() => setMode('calender')}> Calender </div>
+      </div>
     </>
   )
 }

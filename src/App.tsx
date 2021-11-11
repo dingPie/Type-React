@@ -7,16 +7,22 @@ import NavBar from './NavBar';
 function App() {  
   const [mode, setMode] = useState('todo') //: [string, (value: string)=>void]
 
+  const backgroundColor:any = {
+    'todo': '#ffbe32',
+    'weather': '#039be5',
+    'calender': '#81c784'
+  }
 
   return (
-    <div className="App">
+    <div className="App" style={{ background: backgroundColor[mode]}}>
     
-    <NavBar setMode= {setMode} mode={mode} />
+      <div className="main-box">
+        <NavBar setMode= {setMode} mode={mode} />
 
-    {mode === 'todo' ? <Todo />: null }
-    {mode === 'weather' ? <Weather />: null }
-    {mode === 'calender' ? <Calender />: null }
-
+        {mode === 'todo' ? <Todo />: null }
+        {mode === 'weather' ? <Weather />: null }
+        {mode === 'calender' ? <Calender />: null }
+      </div>
     </div>
   );
 }
