@@ -53,9 +53,10 @@
 //여기에만 적용할게 있다면, .todo { 에 넣으면 된다
 h1 {
   color: white;
+  // margin-bottom: 60px;
 }
 .input-box {
-  margin: 12px 0;
+  margin: 48px 0 24px;
   display: flex;
   justify-content: center;
   
@@ -83,21 +84,31 @@ h1 {
   }
 }
 
+// 스크롤바 디자인
+.todo-list::-webkit-scrollbar {
+  display: none;
+  width: 4px;
+}
+.todo-list::-webkit-scrollbar-thumb {
+  // background: white;
+  border-radius: 10px;
+}
+
 .todo-list {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80vh;
+  height: 70vh;
   border: 4px solid white;
+  overflow: scroll;
 
   .todo-memo {
     display: flex ;
     justify-content: center;
+    align-items: center;
     width: 95%;
-    height: 40px;
     margin: 4px 0;
     padding: 8px 0 12px;
-    line-height: 40px;
     border-bottom: 2px solid white;
 
     .content {
@@ -128,17 +139,18 @@ h1 {
 
 
 // Weather 날씨
-
+@mixin uiSpace {
+  margin: 8px 0;
+  padding: 0 0 12px;
+}
 .weather-ui {
   color: white;
   display: flex;
   justify-content: space-evenly;
-  margin-top: 24vh;
+  margin-top: 22vh;
 
-  
   .temp-ui {
-    margin: 12px 0;
-    padding: 0 0 12px;
+    @include uiSpace();
     i {
       font-size: 80px;
     }
@@ -148,8 +160,7 @@ h1 {
   }
 
   .conditions-ui {
-    margin: 12px 0;
-    padding: 0 0 12px;
+    @include uiSpace();
     i {
       font-size: 108px;
     }
@@ -159,8 +170,7 @@ h1 {
   }
 
   .humidity-ui {
-    margin: 12px 0;
-    padding: 0 0 12px;
+    @include uiSpace();
     i {
       font-size: 80px;
     }
@@ -182,7 +192,7 @@ h1 {
         flex-direction: column;
         margin-top: 12px;
       }
-      .temp-ui, .conditions-ui, .humidity-ui {
-        border-bottom: 1px solid white;
-      }
+      // .temp-ui, .conditions-ui, .humidity-ui {
+      //   border-bottom: 1px solid white;
+      // }
     }
