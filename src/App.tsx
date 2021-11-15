@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import Todo from './todo/Todo';
 import Weather from './weather/Weather';
-import Calender from './calender/Calender';
+import Calendar from './calendar/Calendar';
 import NavBar from './NavBar';
 
 function App() {  
@@ -10,7 +10,7 @@ function App() {
   const backgroundColor:any = {
     'todo': '#ffbe32',
     'weather': '#039be5',
-    'calender': '#81c784'
+    'calendar': '#81c784'
   }
 
   return (
@@ -21,7 +21,7 @@ function App() {
 
         {mode === 'todo' ? <Todo />: null }
         {mode === 'weather' ? <Weather />: null }
-        {mode === 'calender' ? <Calender />: null }
+        {mode === 'calendar' ? <Calendar />: null }
       </div>
     </div>
   );

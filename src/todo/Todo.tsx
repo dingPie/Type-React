@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import TodoInput from "./TodoInput";
 
 
-export interface Itodo {
+export interface ITodo {
   id: number;
   content: string;
   checked: boolean;
@@ -13,7 +13,7 @@ const Todo = () => {
   let loadMemo = localStorage.getItem('TodoList')
     ? JSON.parse(localStorage.getItem('TodoList')!)
     : []
-  const [todoMemo, setTodoMemo] = useState<Itodo[]>(loadMemo) // 얘는 배열로 추가되니까 타입을 추가해줌
+  const [todoMemo, setTodoMemo] = useState<ITodo[]>(loadMemo) // 얘는 배열로 추가되니까 타입을 추가해줌
 
   useEffect(() => {
     localStorage.setItem('TodoList', JSON.stringify(todoMemo))

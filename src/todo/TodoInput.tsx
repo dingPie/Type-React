@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Itodo } from "./Todo";
+import { addTodo } from "../redux/modules/redux";
+import { ITodo } from "./Todo";
 
 export interface ITodoList {
-  todoMemo: Itodo[],
-  setTodoMemo: ( list:  Itodo[]) => void;
+  todoMemo: ITodo[],
+  setTodoMemo: ( list:  ITodo[]) => void;
 }
 
 const TodoInput = ( {todoMemo, setTodoMemo}:ITodoList ) => {
   const [inputMemo, setInputMemo] = useState('')
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
     setInputMemo(e.target.value)
   }
 
@@ -19,8 +19,8 @@ const TodoInput = ( {todoMemo, setTodoMemo}:ITodoList ) => {
     if (inputMemo === '') return
     let newMemo = { id: Date.now(), content: inputMemo, checked: false }
     setTodoMemo( [...todoMemo, newMemo])
+    addTodo(inputMemo)
     setInputMemo('')
-    console.log('submit됨')
   }
 
   return (

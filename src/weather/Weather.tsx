@@ -33,60 +33,63 @@ const Weather = () => {
   }
 
   // Axios로 openweathermap를 요청하는 함수
-  const getAxios = async () => {
-    await axios(API_URL)
-     .then((res) => {
-      console.log(res.data);
-      let weatherObj = {
-        weather: {
-          main: res.data.weather[0].main,
-          description: res.data.weather[0].description,
-          icon: res.data.weather[0].icon
-        },
-        tamp: { 
-          now: res.data.main.temp,
-          humidity: res.data.main.humidity
-        }
-      }
-      console.log(weatherObj)
-      setWeatherData(weatherObj);
-     })
-     .catch( (err) =>
-      console.log('에러:', err)
-     )
-   }
+  // const getData = async () => {
+  //   await axios(API_URL)
+  //    .then((res) => {
+  //     console.log(res.data);
+  //     let weatherObj = {
+  //       weather: {
+  //         main: res.data.weather[0].main,
+  //         description: res.data.weather[0].description,
+  //         icon: res.data.weather[0].icon
+  //       },
+  //       tamp: { 
+  //         now: res.data.main.temp,
+  //         humidity: res.data.main.humidity
+  //       }
+  //     }
+  //     console.log(weatherObj)
+  //     setWeatherData(weatherObj);
+  //    })
+  //    .catch( (err) =>
+  //     console.log('에러:', err)
+  //    )
+  //  }
 
-  //  const getData = () => {
-  //   fetch(API_URL)
-  //   .then((res) => {
-  //     console.log(res)
-  //     return res.json()
-  //   })
-  //   .then((data) => {
-  //     console.log(data) 
-  //    const weatherObj = {
-  //      weather: {
-  //        main: data.weather[0].main,
-  //        description: data.weather[0].description,
-  //        icon: data.weather[0].icon
-  //      },
-  //      tamp: { 
-  //        now: data.main.temp,
-  //        humidity: data.main.humidity
-  //      }
-  //    }
-  //    console.log(weatherObj)
-  //    setWeatherData(weatherObj);
-  //   })
-  //   .catch( (err) =>
-  //    console.log('에러:', err)
-  //   )
-  // }
+   const getData = () => {
+    fetch(API_URL)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error ('에러남')
+      }
+      console.log(res)
+      return res.json()
+    })
+    .then((data) => {
+      console.log(data) 
+     let weatherObj = {
+       weather: {
+         main: data.weather[0].main,
+         description: data.weather[0].description,
+         icon: data.weather[0].icon
+       },
+       tamp: { 
+         now: data.main.temp,
+         humidity: data.main.humidity
+       }
+     }
+     console.log(weatherObj)
+     setWeatherData(weatherObj);
+    })
+    .catch( (err) =>
+     console.log('에러:', err)
+    )
+  }
 
    useEffect(() => {
     requestCoords() // 시작할때 위치데이터를 요청하고
     if (API_URL !== null) { // 요청한 데이터를 실행한다.
-      getAxios();
+      getData();
       // getData();
     }
   }, [API_URL])

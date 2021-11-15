@@ -17,7 +17,7 @@ const NavBar = ({ setMode, mode }:NavProps ) => {
       <div className="nav-box">
         <div className='set-todo-btn' onClick= {() => setMode('todo')}> Todo List </div>
         <div className='set-weather-btn' onClick= {() => setMode('weather')}> Weather </div>
-        <div className='set-calender-btn' onClick= {() => setMode('calender')}> Calender </div>
+        <div className='set-calender-btn' onClick= {() => setMode('calendar')}> Calender </div>
       </div>
     </>
   )

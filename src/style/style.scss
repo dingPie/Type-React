@@ -84,16 +84,10 @@ h1 {
   }
 }
 
-// 스크롤바 디자인
+
 .todo-list::-webkit-scrollbar {
-  display: none;
   width: 4px;
 }
-.todo-list::-webkit-scrollbar-thumb {
-  // background: white;
-  border-radius: 10px;
-}
-
 .todo-list {
   display: flex;
   flex-direction: column;
