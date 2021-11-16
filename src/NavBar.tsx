@@ -1,5 +1,5 @@
 import React from "react";
-import './style/style.scss'
+
 
 interface NavProps {
   setMode: (value: string) => void;

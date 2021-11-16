@@ -3,6 +3,8 @@ import Todo from './todo/Todo';
 import Weather from './weather/Weather';
 import Calendar from './calendar/Calendar';
 import NavBar from './NavBar';
+import './style/style.scss'
+import './style/fullcalendar.scss'
 
 function App() {  
   const [mode, setMode] = useState('todo') //: [string, (value: string)=>void]

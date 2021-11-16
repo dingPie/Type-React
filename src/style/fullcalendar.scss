@@ -1,0 +1,19 @@
+body {
+  color: white;
+}
+
+.fc-col-header-cell {
+  
+}
+.fc-daygrid {
+  border: 4px solid white;
+
+  .fc-daygrid-day {
+    border: 2px solid white;
+  }
+}
+
+.fc-event-main {
+  overflow:hidden;
+  text-overflow: ellipsis;
+}

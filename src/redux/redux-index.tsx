@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import redux from './modules/redux';
+import todoReducer from './modules/todo-reducer';
 
 const rootReducer = combineReducers({
-  redux
+  todoReducer
 });
 
 // 루트 리듀서를 내보내주세요.

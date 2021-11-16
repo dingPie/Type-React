@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { addTodo } from "../redux/modules/redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo } from "../redux/modules/todo-reducer";
 import { ITodo } from "./Todo";
+
 
 export interface ITodoList {
   todoMemo: ITodo[],
@@ -8,18 +10,18 @@ export interface ITodoList {
 }
 
 const TodoInput = ( {todoMemo, setTodoMemo}:ITodoList ) => {
+  const dispatch = useDispatch()
+  
   const [inputMemo, setInputMemo] = useState('')
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputMemo(e.target.value)
-  }
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputMemo(e.target.value)
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (inputMemo === '') return
     let newMemo = { id: Date.now(), content: inputMemo, checked: false }
     setTodoMemo( [...todoMemo, newMemo])
-    addTodo(inputMemo)
+    dispatch(addTodo(inputMemo))
     setInputMemo('')
   }
 
