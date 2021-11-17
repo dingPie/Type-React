@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/redux-index";
 import TodoInput from "./TodoInput";
-import { deleteTodo } from "../redux/modules/todo-reducer";
+import { deleteTodo1, checkTodo } from "../redux/modules/todo-reducer";
 
 
 export interface ITodo {
@@ -12,7 +12,10 @@ export interface ITodo {
 }
 
 const Todo = () => {
-  // const state = useSelector( (state: RootState) => state.todoReducer)
+  const todoReducer = useSelector( (state: RootState) => state.todoReducer)
+  const dispatch = useDispatch()
+
+
 
   let loadMemo = localStorage.getItem('TodoList')
     ? JSON.parse(localStorage.getItem('TodoList')!)
@@ -31,7 +34,7 @@ const Todo = () => {
       if (oldCalenderData) {
         calendarDatas = [...oldCalenderData, ...newCalendarData] // 하나의 배열로 만들어주고
       }
-      
+
       localStorage.setItem('savedCalendarData', JSON.stringify(calendarDatas)) // 새로 저장해준다.
     }
   }
@@ -54,8 +57,8 @@ const Todo = () => {
     let newTodo = todoMemo.map(v => 
       v.id === id ? { ...v, checked: !v.checked } : v
       )
-
     setTodoMemo(newTodo)
+    dispatch(checkTodo(id))
   }
 
   const deleteTodo = ( id: number ): void => {
@@ -63,6 +66,7 @@ const Todo = () => {
     if (ok) {
       let target = todoMemo.filter( v => v.id !== id)
       setTodoMemo(target)
+      dispatch(deleteTodo1(id))
   }
   }
 
@@ -76,8 +80,16 @@ const Todo = () => {
     </div>
     )
 
+
+    let test1 = todoReducer.map ( v => 
+      <div style= { v.checked ? checkStyle : undefined}>
+        {v.content}
+      </div>  
+    )
+
   return(
     <div className='todo box'>
+      {test1}
         <h1>What 2 Do ?</h1>
         {}
       <TodoInput todoMemo={todoMemo} setTodoMemo={setTodoMemo} />

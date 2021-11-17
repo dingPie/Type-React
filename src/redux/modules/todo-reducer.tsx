@@ -10,54 +10,69 @@ import { ITodo } from '../../todo/Todo';
 //   checked: boolean;
 // }
 
+
 let loadMemo = localStorage.getItem('TodoList')
   ? JSON.parse(localStorage.getItem('TodoList')!)
   : []
 
 export const addTodo = (content :string) => ({
   type: 'addTodo',
-  data: { id: Date.now(), content: content, checked: false },
+  data: { id: Date.now(), content: content, checked: false }
 });
 
-export const deleteTodo = (content :string) => ({
+export const deleteTodo1 = (id :number) => ({
   type: 'deleteTodo',
-  data: { id: Date.now(), content: content, checked: false },
+  data: { id: id },
 })
 
-export const checkTodo = (content :string) => ({
+export const checkTodo = (id :number) => ({
   type: 'checkTodo',
-  data: { id: Date.now(), content: content, checked: false },
+  data: { id: id},
 })
 
+interface Idata {
+  id:number;
+  content: string;
+  checked: boolean;
+}
 
 type TypeAction =
-  | ReturnType<typeof addTodo>
-  | ReturnType<typeof deleteTodo>
-  | ReturnType<typeof checkTodo>;
-  // | typeof addTodo 
-  // | typeof deleteTodo
-  // | typeof checkTodo
+  // | ReturnType<typeof addTodo>
+  // | ReturnType<typeof deleteTodo>
+  // | ReturnType<typeof checkTodo>;
+  | { type: 'addTodo';  data: Idata}
+  | { type: 'deleteTodo';  data: Idata}
+  | { type: 'checkTodo';  data: Idata}
 
   // type TTest = ITodo[]; 
 
-const todoReducer = ( state: ITodo = loadMemo, action: TypeAction):ITodo => {
+  const saveAndload = (data : ITodo[]):ITodo[] => {
+    localStorage.setItem('TodoList', JSON.stringify(data))
+    let newTodo = JSON.parse(localStorage.getItem('TodoList')! ) // 위에서 추가해 줬으니 무조건 있다.
+    return newTodo
+  }
+
+const todoReducer = ( state: ITodo[] = loadMemo, action: TypeAction) :ITodo[] => {
 
   switch (action.type) {
     
-    case 'addTodo': // case 라고 입력하고 Ctrl + Space 를 누르면 어떤 종류의 action.type들이 있는지 확인 할 수 있습니다.
-    // 음 ITodo가 list 형식이 아니라, map, filter가 사용불가...
-      localStorage.setItem('TodoList', JSON.stringify([state, action.data]))
+    case 'addTodo': 
+      let newData: ITodo[] = [...state, action.data]
+      saveAndload(newData)
       console.log(state, typeof state)
-      return state
+      return newData
     
     case 'deleteTodo':
-      // let test = state.filter(v => v.id !== action.data.id)
+      let deletedTodo: ITodo[] = state.filter(v => v.id !== action.data.id)
+      saveAndload(deletedTodo)
       console.log(state)
-      return state
+      return deletedTodo
 
     case 'checkTodo':
+      let checkedTodo = state.map( v => v.id === action.data.id ? {...v, checked: !v.checked} : v  )
+      saveAndload(checkedTodo)
       console.log(state)
-      return state
+      return checkedTodo
       
     default:
       return state;
