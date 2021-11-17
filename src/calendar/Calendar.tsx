@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
-import { ITodo } from '../todo/Todo';
+import { ITodo } from '../redux/modules/todo-reducer';
 
 interface IEvents {
   title: string,
