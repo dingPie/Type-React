@@ -3,8 +3,9 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
 import { ITodo } from '../redux/modules/todo-reducer';
+import EventModal from './EventModal'
 
-interface IEvents {
+export interface IEvents {
   title: string,
   start: string
 }
@@ -12,16 +13,14 @@ interface IEvents {
 const Calendar = () => {
 
   let loadCalendar = localStorage.getItem('todoCalendar') // 매일 초기화되기 때문에 따로 저장해줌
-    ? JSON.parse(localStorage.getItem('todoCalendar')!) // 얘는 null 이 아니다. 라고 확정해줌!
+    ? JSON.parse(localStorage.getItem('todoCalendar')!) // !는 null 이 아니다. 라고 확정해줌!
     : [{title: '초기값', start: '2000-01-01'}]
 
   const [calendarData, setCalendarData] = useState<IEvents[]>(loadCalendar) // 이게 있어야 events가 null이 안된다.
-  // const [events, setEvents] = useState<IEvents[] | null>(null)
+  const [modalData, setModalData] = useState<IEvents[] | null>(null)
+  const [onModal, setOnModal] = useState(true)
 
   const getTodoData = ():void => {
-    // 캘린더에 저장할 이미 짠 메모를 저장하는 함수. json에 따로 저장하는걸 만들자.
-    // 그럼 따로 local에 저장하는게 필요
- 
     let target = localStorage.getItem('TodoList')
     if (target) {
       let value: ITodo[] = JSON.parse(target)
@@ -47,58 +46,72 @@ const Calendar = () => {
       setCalendarData(data)
     }
   }
-  // todo 들을 Redux로 관리해서 여기 쏴줄까
-
-  // const saveCalendarData = () => {
-  //   if ( String(new Date().getDate()) !== localStorage.getItem('todayDate') ) {
-  //     localStorage.setItem('savedCalendardata', JSON.stringify(loadCalendar))
-  //   }
-  // }
 
   useEffect(() => { // 어차피 다른 페이지 다녀오면 리랜더되니까
     getTodoData()
   }, [])
 
- const handleDateClick = (arg:any) => { // bind with an arrow function
-    alert(arg.dateStr)
-  }
-  const events = [ // Local에 저장 된 값을 이용하자.
-    {
-      title: 'event 1',
-      start: '2021-11-14',
-    },
-  ];
-
-  const handleEventClick = (v: any) => {
-    console.log(v.event._def.title)
+  const handleDateClick = (arg: any ) => {
+    let test :IEvents[] = JSON.parse(localStorage.getItem('todoCalendar')!)
+    let test2 :IEvents[] = test.filter(v => v.start === arg.dateStr )
+    console.log(test2)
+    console.log(test)
   }
 
-
-  const renderEventContent = (eventInfo:any) => {
-    return (
-      <>
-        <b>{eventInfo.timeText}</b>
-        <i>{eventInfo.event.title}</i>
-      </>
-    )
+  const handleEventClick = (arg: any) => {
+    let test = calendarData.filter(v => v.title === arg.event._def.title)
+    let test2 = calendarData.filter(v => v.start === test[0].start )
+    setOnModal(true)
+    setModalData(test2)
+    console.log(test2)
   }
+
+  // useEffect(() => {
+  //   setOnModal(!onModal)
+  // }, [modalData])
+
+  const test123 = () => {
+    if (modalData === null) return
+    let value = modalData.map( v => 
+      <div> {v.title} </div>
+      )
+    return value
+  }
+
+
+  // const renderEventContent = (eventInfo:any) => {
+  //   console.log(eventInfo)
+  //   return (
+  //     <>
+  //       <i>{eventInfo.event.title}</i>
+  //     </>
+  //   )
+  // }
 
   return (
-    <>
+    <div className='calendar box'>
+
+      <h1> What 2 Did ? </h1>
+
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
+        // editable= {true}
         initialView="dayGridMonth"
         eventDisplay= 'line-item'
         // headerToolbar= {{
         // center: 'dayGridMonth,timeGridWeek,timeGridDay new'
         // }}
-        events= {[...calendarData, ...events]}
-        // dateClick={ (arg)=> handleDateClick(arg)}
+        events= {calendarData}
+        dateClick={ (arg)=> handleDateClick(arg)}
         eventClick= {(arg)=> handleEventClick(arg)}
-        eventContent={ (eventInfo)=> renderEventContent(eventInfo)}
+        // eventContent= { (e)=> renderEventContent(e)}
       />
 
-    </>
+        {/* { onModal && test123() } */}
+      { onModal && modalData && <EventModal modalData={modalData} setOnModal={setOnModal} /> }
+      
+
+    </div>
   )
 }
 

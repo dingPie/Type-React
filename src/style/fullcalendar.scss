@@ -1,19 +1,67 @@
+$deepGreen :#5eaa62;
+
 body {
   color: white;
 }
 
 .fc-col-header-cell {
-  
+  background: $deepGreen;
+  border: 2px solid white;
 }
+
 .fc-daygrid {
   border: 4px solid white;
+
+  .fc-daygrid-event {
+    background: $deepGreen;
+    border: none;
+  }
 
   .fc-daygrid-day {
     border: 2px solid white;
   }
 }
 
-.fc-event-main {
-  overflow:hidden;
-  text-overflow: ellipsis;
+.fc-event-title {
+  overflow: hidden;
+  text-overflow: hidden;
+}
+
+// 캘린더 모달
+
+@mixin fixedCenter {
+  // 중앙정렬
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.modal-box {
+  position: fixed;
+  z-index: 2;
+  background: $deepGreen;
+  min-width: 400px;
+  width: 50%;
+  padding: 30px 0 8px;
+  @include fixedCenter;
+  border-radius: 6px;
+
+  .title {
+    background: #2c3e5069;
+    padding: 4px;
+    margin: 8px;
+    box-shadow: 1px 1px 3px rgb(34, 34, 34);
+  }
+  .x-btn {
+    position: absolute;
+    right: 2%;
+    top: 5%;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
 }

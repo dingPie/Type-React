@@ -62,7 +62,6 @@ const Weather = () => {
       if (!res.ok) {
         throw new Error ('에러남')
       }
-      console.log(res)
       return res.json()
     })
     .then((data) => {
@@ -99,6 +98,7 @@ const Weather = () => {
     '01': "fas fa-sun",
     '02': "fas fa-cloud-sun",
     '03': "fas fa-cloud",
+    '04': "fas fa-cloud",
     '09': "fas fa-cloud-showers-heavy",
     '10': "fas fa-cloud-rain",
     '11': "fas fa-bolt",

@@ -1,10 +1,24 @@
 import React from "react";
+import { IEvents } from "./Calendar";
 
-const EventModal = () => {
+interface ITest {
+  modalData: IEvents[] | null
+  setOnModal: (v : boolean) => void;
+}
+
+const EventModal = ( {modalData, setOnModal} :ITest ) => {
+
 
   return (
-    <div>
+    <div className= 'modal-box'>
+      
+      <button className='x-btn' onClick= { () => setOnModal(false)}> x </button>
 
+      { modalData &&
+        modalData.map( v => 
+          <div className='title'> {v.title} </div>
+        )
+      }
     </div>
   )
 }

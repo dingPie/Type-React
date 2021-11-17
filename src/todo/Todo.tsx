@@ -5,11 +5,11 @@ import TodoInput from "./TodoInput";
 import { deleteTodo, checkTodo } from "../redux/modules/todo-reducer";
 
 
-export interface ITodo {
-  id: number;
-  content: string;
-  checked: boolean;
-}
+// export interface ITodo {
+//   id: number;
+//   content: string;
+//   checked: boolean;
+// }
 
 const Todo = () => {
   const todoReducer = useSelector( (state: RootState) => state.todoReducer)

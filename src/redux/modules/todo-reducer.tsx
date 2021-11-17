@@ -29,6 +29,7 @@ export const checkTodo = (id :number) => ({
 })
 
 type TypeAction =
+  // ReturnType<typeof _____> 는 특정 함수의 반환값을 추론해줍니다
   // | ReturnType<typeof addTodo>
   // | ReturnType<typeof deleteTodo>
   // | ReturnType<typeof checkTodo>;
