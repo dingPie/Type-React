@@ -3,6 +3,16 @@
 ### Todo List를 TypeScirpt와 React(Redux), Open API를 활용하여 제작한 프로젝트입니다 .
 <br>
 
+## 사용된 기술
+
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=black">
+
+- "openweathermap" 날씨정보 API <br>
+- "fullCalendar" 캘린더 모듈
+
+<br>
+
 
 ## Todo List
 
