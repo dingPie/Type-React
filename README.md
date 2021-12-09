@@ -1,14 +1,22 @@
 # Todo List With TS & React
 
-### Todo List를 TypeScirpt와 React(Redux), Open API를 활용하여 제작한 프로젝트입니다 .
-<br>
+## 프로젝트 개요
+- TypeScript의 사용을 위한 Todo 앱 제작
+- OPEN API의 비동기 통신 활용
+- TypeScript - Redux를 활용하여 데이터의 사용
+- TodoList에서 클리어한 내용을 Calendar에 저장해주는 기능 구현 
+
+<br><br>
 
 ## 사용된 기술
 
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=black">
+<img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=Sass&logoColor=black">
 
-- "openweathermap" 날씨정보 API <br>
+<br>
+
+- "openweathermap" 날씨정보 API
 - "fullCalendar" 캘린더 모듈
 
 <br>
