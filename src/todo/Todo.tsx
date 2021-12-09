@@ -16,9 +16,10 @@ const Todo = () => {
   const dispatch = useDispatch()
 
   const checkDate = () => {
-    if ( String(new Date().getDate()) === localStorage.getItem('todayDate') ) {// 오늘 날짜랑 저장된 날짜가 다르면,
-      return 
-    }
+    if ( String(new Date().getDate()) === localStorage.getItem('todayDate') ) return 
+    
+    // 오늘 날짜랑 저장된 날짜가 다르면,
+    // 지금 Redux랑 오류나는듯?
       localStorage.removeItem('TodoList') // Todo 다 날린다.
       localStorage.setItem('todayDate', String( new Date().getDate() )) // 그리고 날짜도 새로 저장
 
@@ -30,8 +31,8 @@ const Todo = () => {
       }
       localStorage.setItem('savedCalendarData', JSON.stringify(calendarDatas)) // 새로 저장해준다.
   }
-  useEffect(() => 
-  { // 날짜 비교해줌
+
+  useEffect(() => { // 날짜 비교해줌
     checkDate()
   }, [])
 

@@ -1,12 +1,12 @@
 import React from "react";
 import { IEvents } from "./Calendar";
 
-interface ITest {
+interface IEventModal {
   modalData: IEvents[] | null
   setOnModal: (v : boolean) => void;
 }
 
-const EventModal = ( {modalData, setOnModal} :ITest ) => {
+const EventModal = ( {modalData, setOnModal} :IEventModal ) => {
 
 
   return (

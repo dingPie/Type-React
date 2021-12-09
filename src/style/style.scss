@@ -174,7 +174,9 @@ h1 {
   }
 }
 
-// 모바일 사이즈
+
+
+// 모바일 세로형
     @media screen and (max-width:768px) {
       .main-box {
         max-width: 460px;
@@ -186,7 +188,4 @@ h1 {
         flex-direction: column;
         margin-top: 12px;
       }
-      // .temp-ui, .conditions-ui, .humidity-ui {
-      //   border-bottom: 1px solid white;
-      // }
     }

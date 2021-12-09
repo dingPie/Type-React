@@ -12,105 +12,61 @@ export interface IEvents {
 
 const Calendar = () => {
 
-  let loadCalendar = localStorage.getItem('todoCalendar') // 매일 초기화되기 때문에 따로 저장해줌
-    ? JSON.parse(localStorage.getItem('todoCalendar')!) // !는 null 이 아니다. 라고 확정해줌!
+  let loadCalendar = localStorage.getItem('todoCalendar')
+    ? JSON.parse(localStorage.getItem('todoCalendar')!) // 확정할당 연산자 사용
     : [{title: '초기값', start: '2000-01-01'}]
 
-  const [calendarData, setCalendarData] = useState<IEvents[]>(loadCalendar) // 이게 있어야 events가 null이 안된다.
+  const [calendarData, setCalendarData] = useState<IEvents[]>(loadCalendar)
   const [modalData, setModalData] = useState<IEvents[] | null>(null)
-  const [onModal, setOnModal] = useState(true)
+  const [onModal, setOnModal] = useState(false)
 
+  // 현재 TodoData가 있는지 체크하는함수. 기본 State값이 local에서 바로 받아오기 때문에, 추가로 checked 된 데이터가 없다면 실행종료시킨다.
   const getTodoData = ():void => {
     let target = localStorage.getItem('TodoList')
-    if (target) {
-      let value: ITodo[] = JSON.parse(target)
-      let checked = value.filter( v => v.checked === true ) // 체크 된 것 중에
-      let savedCalendarData = JSON.parse(localStorage.getItem('savedCalendarData')!) //그리고 이전에 체크로 저장된 값들 가져와서
-      let calendarDatas;
-      if (savedCalendarData) {
-        calendarDatas = [...savedCalendarData, ...checked] // 두개 합쳐서 배열로 만들어주고
-      } else {
-        calendarDatas = checked
-      }
-      // calendar에 추가할 데이터 형태로 가공해준다.
-      let content = calendarDatas.map( v => v.content )
-      let year = calendarDatas.map( v => new Date(v.id).getFullYear())
-      let month = calendarDatas.map( v => new Date(v.id).getMonth() + 1)
-      let date = calendarDatas.map( v => new Date(v.id).getDate())
+    if (!target) return
 
-      let data = []
-      for (let i = 0; i < calendarDatas.length; i ++ ) {
-        data.push({ title: content[i], start: `${year[i]}-${month[i]}-${date[i]}` })
-      }
-      localStorage.setItem('todoCalendar', JSON.stringify(data)) // 이건 초깃값 설정을 편하게 하기위해...? 처음 useState에서 쓰이긴하는데, 사용성을 좀 더 고민해보자.
-      setCalendarData(data)
-    }
+    let checked = JSON.parse(target).filter( (v :ITodo) => v.checked === true ) // 체크 된 것 중에
+    let savedCalendarData = JSON.parse(localStorage.getItem('savedCalendarData')!) //그리고 이전에 체크로 저장된 값들 가져와서
+    let calendarDatas = checked;
+    if (savedCalendarData) calendarDatas = [...savedCalendarData, ...checked]    // savedCalendarData가 있다면 spread 연산자로 합쳐준다.
+  
+    // calendar에 추가할 데이터 형태로 가공해준다.
+    let data = [] // 최종데이터가 들어갈 빈 array
+    let content = calendarDatas.map( (v: ITodo) => v.content )
+    
+    const yearData = (v: ITodo) => new Date(v.id).getFullYear()
+    const monthData = (v: ITodo) => new Date(v.id).getMonth() + 1
+    const dateData = (v: ITodo) => ( new Date(v.id).getDate() < 10 ) ? '0' + new Date(v.id).getDate() : new Date(v.id).getDate() // Calendar 데이터 형식에 맞춰주기 위해 10 이하에선 0을 붙여준다.
+    let start = calendarDatas.map( (v: ITodo) =>`${yearData(v)}-${monthData(v)}-${dateData(v)}` )
+    for (let i in calendarDatas) data.push({ title: content[i], start: start[i] })
+
+    setCalendarData(data)
+    // localStorage.setItem('todoCalendar', JSON.stringify(data))
   }
 
-  useEffect(() => { // 어차피 다른 페이지 다녀오면 리랜더되니까
+  useEffect(() => {
     getTodoData()
   }, [])
-
-  const handleDateClick = (arg: any ) => {
-    let test :IEvents[] = JSON.parse(localStorage.getItem('todoCalendar')!)
-    let test2 :IEvents[] = test.filter(v => v.start === arg.dateStr )
-    console.log(test2)
-    console.log(test)
-  }
-
-  const handleEventClick = (arg: any) => {
-    let test = calendarData.filter(v => v.title === arg.event._def.title)
-    let test2 = calendarData.filter(v => v.start === test[0].start )
+  
+  const handleEventClick = (arg: any) => { // arg의 형식이 복잡해서 any 사용
+    let target = calendarData.filter(v => v.title === arg.event._def.title)
+    let moddalData = calendarData.filter(v => v.start === target[0].start )
     setOnModal(true)
-    setModalData(test2)
-    console.log(test2)
+    setModalData(moddalData)
   }
 
-  // useEffect(() => {
-  //   setOnModal(!onModal)
-  // }, [modalData])
-
-  const test123 = () => {
-    if (modalData === null) return
-    let value = modalData.map( v => 
-      <div> {v.title} </div>
-      )
-    return value
-  }
-
-
-  // const renderEventContent = (eventInfo:any) => {
-  //   console.log(eventInfo)
-  //   return (
-  //     <>
-  //       <i>{eventInfo.event.title}</i>
-  //     </>
-  //   )
-  // }
 
   return (
     <div className='calendar box'>
 
       <h1> What 2 Did ? </h1>
-
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
-        // editable= {true}
-        initialView="dayGridMonth"
-        eventDisplay= 'line-item'
-        // headerToolbar= {{
-        // center: 'dayGridMonth,timeGridWeek,timeGridDay new'
-        // }}
         events= {calendarData}
-        dateClick={ (arg)=> handleDateClick(arg)}
         eventClick= {(arg)=> handleEventClick(arg)}
-        // eventContent= { (e)=> renderEventContent(e)}
       />
-
-        {/* { onModal && test123() } */}
       { onModal && modalData && <EventModal modalData={modalData} setOnModal={setOnModal} /> }
       
-
     </div>
   )
 }

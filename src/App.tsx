@@ -6,24 +6,32 @@ import NavBar from './NavBar';
 import './style/style.scss'
 import './style/fullcalendar.scss'
 
+interface IBGColor {
+  "todo": string;
+  "weather": string;
+  "calendar": string;
+}
+
 function App() {  
   const [mode, setMode] = useState('todo') //: [string, (value: string)=>void]
 
-  const backgroundColor:any = {
+  const backgroundColor: any  = {
     'todo': '#ffbe32',
     'weather': '#039be5',
     'calendar': '#81c784'
   }
 
   return (
-    <div className="App" style={{ background: backgroundColor[mode]}}>
+    <div className="App" style={{ background: backgroundColor[mode] }}>
     
       <div className="main-box">
+        
         <NavBar setMode= {setMode} mode={mode} />
 
         {mode === 'todo' ? <Todo />: null }
         {mode === 'weather' ? <Weather />: null }
         {mode === 'calendar' ? <Calendar />: null }
+
       </div>
     </div>
   );

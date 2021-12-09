@@ -1,12 +1,16 @@
 import React from "react";
 import { IWeatherData } from "./Weather";
 
-const Temperature = ( weatherData: IWeatherData ) => {
+export interface ITest {
+  weatherData: IWeatherData
+}
+
+const Temperature = ( { weatherData }: ITest ) => {
   const tempUi = () => { 
     if (weatherData) {
       let value =
         <div className= 'temp-ui'>
-          <p> Temparture </p>
+          <h2> Temparture </h2>
           <i className="fas fa-temperature-low"></i>
           <div> {weatherData.tamp.now.toFixed(1)}℃</div>
         </div>
@@ -15,7 +19,7 @@ const Temperature = ( weatherData: IWeatherData ) => {
   }
   return (
     <>
-    { tempUi }
+      { tempUi() }
     </>
   )
 }

@@ -13,19 +13,18 @@ const TodoInput = ( ) => {
   
   const [inputMemo, setInputMemo] = useState('')
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputMemo(e.target.value)
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (inputMemo === '') return
-    dispatch(addTodo(inputMemo))
+    dispatch(addTodo(inputMemo)) // Redux에 있는 Todo 로 전달
     setInputMemo('')
   }
 
   return (
     <form onSubmit= {(e) => onSubmit(e)} className='input-box'>
       <input type="text" value ={inputMemo} className='input' placeholder='Write down what to do...'
-        onChange= {(e) => onChange(e)}
+        onChange= {(e) => setInputMemo(e.target.value)
+        }
       />
       <input type="submit" value="+" className='btn' />
     </form>
