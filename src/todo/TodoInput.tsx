@@ -3,11 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTodo } from "../redux/modules/todo-reducer";
 
 
-// export interface ITodoList {
-//   todoMemo: ITodo[],
-//   setTodoMemo: ( list:  ITodo[]) => void;
-// }
-
 const TodoInput = ( ) => {
   const dispatch = useDispatch()
   

@@ -65,7 +65,7 @@ const Weather = () => {
 
    useEffect(() => {
     requestCoords() // 시작할때 위치데이터를 요청하고
-    if (API_URL !== '') { // 요청한 데이터를 실행한다.
+    if (API_URL !== '') { // URL 위치를 받아온 이후 데이터 요청 실행
       getData();
     }
   }, [API_URL])

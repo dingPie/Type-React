@@ -17,25 +17,24 @@ export const addTodo = (content :string) => ({
   type: 'addTodo',
   data: { id: Date.now(), content: content, checked: false }
 });
-// 메모 삭제시...
+
+// 메모 삭제시
 export const deleteTodo = (id :number) => ({
   type: 'deleteTodo',
   data: { id: id },
 })
-// 체크 on / off시...
+
+// 체크 on / off시
 export const checkTodo = (id :number) => ({
   type: 'checkTodo',
   data: { id: id},
 })
 
 type TypeAction =
-  // ReturnType<typeof _____> 는 특정 함수의 반환값을 추론해줍니다
-  // | ReturnType<typeof addTodo>
-  // | ReturnType<typeof deleteTodo>
-  // | ReturnType<typeof checkTodo>;
   | { type: 'addTodo';  data: ITodo}
   | { type: 'deleteTodo';  data: ITodo}
   | { type: 'checkTodo';  data: ITodo}
+
 
   // 저장 및 로드함수
   const saveAndload = (data : ITodo[]):ITodo[] => {
