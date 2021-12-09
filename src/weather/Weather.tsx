@@ -28,7 +28,6 @@ const Weather = () => {
     const lat = position.coords.latitude;  // 경도  
     const lon = position.coords.longitude;  // 위도
     setAPI_URL(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=74dbeb38347e356be38594a5938cf3ea&units=metric`)
-    // 배포시? 일부 브라우저에서 작동안함 /api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=74dbeb38347e356be38594a5938cf3ea&units=metric
   }
   // 요청 실패시
   const handleGeoErr = (err: any) => {
@@ -60,7 +59,6 @@ const Weather = () => {
     } catch (err) {
       console.log('에러:', err)
     }
-
    }
 
    useEffect(() => {

@@ -1,7 +1,5 @@
 import React from "react";
-import { IWeatherData } from "./Weather";
-import { ITest } from './Tamperature'
-
+import { IWDate } from './Tamperature'
 
 interface IIcons {
   '01': string; '02': string; '03': string; '04': string; '09': string; '10': string; '11': string; '13': string; '50': string;
@@ -20,10 +18,9 @@ const icons: any = {
   '50': "fas fa-smog"
 }
 
-const Conditions = ( { weatherData }: ITest ) => {
+const Conditions = ( { weatherData }: IWDate ) => {
 
   const condsUi = () => { // 날씨 UI
-    if (weatherData) {
       let iconNum:string = weatherData.weather.icon.substr(0, 2)
       let value =
         <div className= 'conditions-ui'>
@@ -33,7 +30,6 @@ const Conditions = ( { weatherData }: ITest ) => {
           {/* <img src={`https://openweathermap.org/img/wn/${weatherData.weather.icon}@2x.png`} alt="" /> */}
         </div>
       return value
-      }
   }
 
   return (

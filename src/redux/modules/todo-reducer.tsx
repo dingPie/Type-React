@@ -21,19 +21,19 @@ export const addTodo = (content :string) => ({
 // 메모 삭제시
 export const deleteTodo = (id :number) => ({
   type: 'deleteTodo',
-  data: { id: id },
+  data: { id: id }
 })
 
 // 체크 on / off시
 export const checkTodo = (id :number) => ({
   type: 'checkTodo',
-  data: { id: id},
+  data: { id: id }
 })
 
 type TypeAction =
-  | { type: 'addTodo';  data: ITodo}
-  | { type: 'deleteTodo';  data: ITodo}
-  | { type: 'checkTodo';  data: ITodo}
+    { type: 'addTodo';  data: ITodo }
+  | { type: 'deleteTodo';  data: number } // ITodo에서 수정했음.
+  | { type: 'checkTodo';  data: number }
 
 
   // 저장 및 로드함수
@@ -52,12 +52,12 @@ const todoReducer = ( state: ITodo[] = loadMemo, action: TypeAction): ITodo[] =>
       return newData
     
     case 'deleteTodo':
-      let deletedTodo: ITodo[] = state.filter(v => v.id !== action.data.id)
+      let deletedTodo: ITodo[] = state.filter(v => v.id !== action.data)
       saveAndload(deletedTodo)
       return deletedTodo
 
     case 'checkTodo':
-      let checkedTodo = state.map( v => v.id === action.data.id ? {...v, checked: !v.checked} : v  )
+      let checkedTodo: ITodo[] = state.map( v => v.id === action.data ? {...v, checked: !v.checked} : v  )
       saveAndload(checkedTodo)
       return checkedTodo
       

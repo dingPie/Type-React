@@ -1,25 +1,17 @@
 import React from "react";
-import { IWeatherData } from "./Weather";
+import { IWDate } from "./Tamperature";
 
-export interface ITest {
-  weatherData: IWeatherData
-}
-
-const Humidity = ( { weatherData }: ITest ) => {
+const Humidity = ( { weatherData }: IWDate ) => {
   
   const humidityUi = () => {
-    if (weatherData) {
-      const value =
-        <div className= 'humidity-ui'>
-          <h2> Humidity </h2>
-          <i className="fas fa-tint"></i>
-          <div className= 'humidity-value'> {weatherData.tamp.humidity }% </div>
+    const value =
+      <div className= 'humidity-ui'>
+        <h2> Humidity </h2>
+        <i className="fas fa-tint"></i>
+        <div className= 'humidity-value'> {weatherData.tamp.humidity }% </div>
+      </div>
 
-          {/* <img src={`https://openweathermap.org/img/wn/${weatherData.weather.icon}@2x.png`} alt="" /> */}
-        </div>
-
-      return value
-    }
+    return value
   }
 
   return (

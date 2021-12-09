@@ -32,25 +32,22 @@ const Calendar = () => {
   
     // calendar에 추가할 데이터 형태로 가공해준다.
     let data = [] // 최종데이터가 들어갈 빈 array
-    let content = calendarDatas.map( (v: ITodo) => v.content )
-    
     const yearData = (v: ITodo) => new Date(v.id).getFullYear()
     const monthData = (v: ITodo) => new Date(v.id).getMonth() + 1
     const dateData = (v: ITodo) => ( new Date(v.id).getDate() < 10 ) ? '0' + new Date(v.id).getDate() : new Date(v.id).getDate() // Calendar 데이터 형식에 맞춰주기 위해 10 이하에선 0을 붙여준다.
+    
+    let content = calendarDatas.map( (v: ITodo) => v.content )
     let start = calendarDatas.map( (v: ITodo) =>`${yearData(v)}-${monthData(v)}-${dateData(v)}` )
     for (let i in calendarDatas) data.push({ title: content[i], start: start[i] })
-
     setCalendarData(data)
-    // localStorage.setItem('todoCalendar', JSON.stringify(data))
   }
-
   useEffect(() => {
     getTodoData()
   }, [])
   
   const handleEventClick = (arg: any) => { // arg의 형식이 복잡해서 any 사용
-    let target = calendarData.filter(v => v.title === arg.event._def.title)
-    let moddalData = calendarData.filter(v => v.start === target[0].start )
+    let target = calendarData.filter(v => v.title === arg.event._def.title)[0]
+    let moddalData = calendarData.filter(v => v.start === target.start )
     setOnModal(true)
     setModalData(moddalData)
   }
